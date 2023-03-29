@@ -1,0 +1,378 @@
+{smcl}
+{txt}{sf}{ul off}{.-}
+      name:  {res}<unnamed>
+       {txt}log:  {res}/Users/Arun/Desktop/Spring 2022/MicroEconometrics/Paper/Micro Paper.smcl
+  {txt}log type:  {res}smcl
+ {txt}opened on:  {res} 6 May 2022, 18:04:36
+{txt}
+{com}. 
+. import excel "/Users/Arun/Desktop/Spring 2022/MicroEconometrics/Paper/Micro Paper Weekly.xlsx", cellrange(A3:E250) first
+{res}{txt}
+{com}. 
+. * Setting weekly time series
+. tsmktim time, start (2017w29)
+{res}{txt}{col 9}time variable:  {res}{col 25}time, 2017w29 to 2022w15
+{txt}{col 17}delta:  {res}1 week
+{txt}
+{com}. tsset time
+{res}{txt}{col 9}time variable:  {res}{col 25}time, 2017w29 to 2022w15
+{txt}{col 17}delta:  {res}1 week
+{txt}
+{com}. 
+. * AIC/BIC to get the optimal lag 
+. varsoc OilPrices Bitcoin MARA BLCN, maxlag(5)
+
+{txt}{col 4}Selection-order criteria
+{col 4}Sample:  {res}2018w7 - 2022w15 {txt}{col 49}Number of obs {col 68}= {res}      217
+{col 3}{text}{c TLC}{hline 4}{c TT}{hline 9}{hline 8}{hline 1}{hline 5}{hline 7}{hline 8}{hline 1}{hline 9}{hline 1}{hline 9}{hline 1}{hline 9}{hline 1}{hline 1}{c TRC}
+{col 3}{text}{c |}lag{col 8}{c |}    LL  {col 18}   LR  {col 27}  df{col 32}   p  {col 39}   FPE {col 48}    AIC {col 58}   HQIC {col 68}   SBIC {col 79}{c |}
+{col 3}{text}{c LT}{hline 4}{c +}{hline 9}{hline 8}{hline 1}{hline 5}{hline 7}{hline 8}{hline 1}{hline 9}{hline 1}{hline 9}{hline 1}{hline 9}{hline 1}{hline 1}{c RT}
+{col 3}{text}{c |}  0{col 8}{c |}{result}{space 1}-4546.21{col 18}{col 27}{col 32}{col 39} 1.9e+13{col 48}{space 1} 41.9374{col 58}{space 1} 41.9626{col 68}{space 1} 41.9997{col 79}{text}{c |}
+{col 3}{text}{c |}  1{col 8}{c |}{result}{space 1}-3390.13{col 18}{space 1} 2312.1{col 27}  16{col 32} 0.000{col 39} 5.2e+08{col 47}*{col 48}{space 1} 31.4298{col 57}*{col 58}{space 1} 31.5556{col 67}*{col 68}{space 1} 31.7413{col 77}*{col 79}{text}{c |}
+{col 3}{text}{c |}  2{col 8}{c |}{result}{space 1}-3378.27{col 18}{space 1} 23.729{col 27}  16{col 32} 0.096{col 39} 5.5e+08{col 48}{space 1} 31.4679{col 58}{space 1} 31.6944{col 68}{space 1} 32.0286{col 79}{text}{c |}
+{col 3}{text}{c |}  3{col 8}{c |}{result}{space 1}-3363.36{col 18}{space 1} 29.815{col 26}*{col 27}  16{col 32} 0.019{col 39} 5.5e+08{col 48}{space 1}  31.478{col 58}{space 1} 31.8052{col 68}{space 1} 32.2879{col 79}{text}{c |}
+{col 3}{text}{c |}  4{col 8}{c |}{result}{space 1}-3350.59{col 18}{space 1} 25.541{col 27}  16{col 32} 0.061{col 39} 5.7e+08{col 48}{space 1} 31.5078{col 58}{space 1} 31.9356{col 68}{space 1} 32.5669{col 79}{text}{c |}
+{col 3}{text}{c |}  5{col 8}{c |}{result}{space 1}-3343.82{col 18}{space 1} 13.548{col 27}  16{col 32} 0.632{col 39} 6.2e+08{col 48}{space 1} 31.5928{col 58}{space 1} 32.1213{col 68}{space 1} 32.9011{col 79}{text}{c |}
+{col 3}{text}{c BLC}{hline 4}{c BT}{hline 9}{hline 8}{hline 1}{hline 5}{hline 7}{hline 8}{hline 1}{hline 9}{hline 1}{hline 9}{hline 1}{hline 9}{hline 1}{hline 1}{c BRC}
+{space 3}Endogenous:  OilPrices Bitcoin MARA BLCN
+{space 3} Exogenous:  _cons
+
+{com}. 
+. * Vector Autoregression for Granger Causality test
+. var OilPrices Bitcoin MARA BLCN, lags(1)
+{res}
+{txt}Vector autoregression
+
+{col 1}Sample:  {res}2018w3 - 2022w15 {txt}{col 49}Number of obs{col 67}= {res}       221
+{txt}Log likelihood =  {res}-3447.924{txt}{col 38}{col 49}AIC{col 67}=  {res} 31.38393
+{txt}FPE{col 16}=  {res} 5.01e+08{txt}{col 49}HQIC{col 67}=  {res}  31.5081
+{txt}Det(Sigma_ml){col 16}=  {res} 4.18e+08{txt}{col 49}SBIC{col 67}=  {res} 31.69145
+
+{col 1}{text}Equation        {col 18}  Parms{col 26}     RMSE {col 37}   R-sq  {col 47}   chi2   {col 58} P>chi2
+{col 1}{text}{hline 17}{hline 8}{hline 11}{hline 10}{hline 11}{hline 7}
+{col 1}{text}OilPrices       {col 18}{result}     5{col 26}{space 2} 3.36955{col 37}{space 1} 0.9642{col 47} 5950.707{col 58} 0.0000
+{col 1}{text}Bitcoin         {col 18}{result}     5{col 26}{space 2} 2692.95{col 37}{space 1} 0.9787{col 47} 10134.71{col 58} 0.0000
+{col 1}{text}MARA            {col 18}{result}     5{col 26}{space 2} 3.46369{col 37}{space 1} 0.9506{col 47} 4250.135{col 58} 0.0000
+{col 1}{text}BLCN            {col 18}{result}     5{col 26}{space 2} 1.16067{col 37}{space 1} 0.9872{col 47} 17079.86{col 58} 0.0000
+{col 1}{text}{hline 17}{hline 8}{hline 11}{hline 10}{hline 11}{hline 7}
+
+{res}{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}      Coef.{col 26}   Std. Err.{col 38}      z{col 46}   P>|z|{col 54}     [95% Con{col 67}f. Interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}OilPrices    {txt}{c |}
+{space 3}OilPrices {c |}
+{space 9}L1. {c |}{col 14}{res}{space 2} .9906848{col 26}{space 2} .0160859{col 37}{space 1}   61.59{col 46}{space 3}0.000{col 54}{space 4} .9591569{col 67}{space 3} 1.022213
+{txt}{space 12} {c |}
+{space 5}Bitcoin {c |}
+{space 9}L1. {c |}{col 14}{res}{space 2} .0000508{col 26}{space 2}  .000059{col 37}{space 1}    0.86{col 46}{space 3}0.389{col 54}{space 4}-.0000649{col 67}{space 3} .0001665
+{txt}{space 12} {c |}
+{space 8}MARA {c |}
+{space 9}L1. {c |}{col 14}{res}{space 2}-.0564231{col 26}{space 2} .0532824{col 37}{space 1}   -1.06{col 46}{space 3}0.290{col 54}{space 4}-.1608547{col 67}{space 3} .0480086
+{txt}{space 12} {c |}
+{space 8}BLCN {c |}
+{space 9}L1. {c |}{col 14}{res}{space 2} .0329307{col 26}{space 2} .0651029{col 37}{space 1}    0.51{col 46}{space 3}0.613{col 54}{space 4}-.0946687{col 67}{space 3} .1605301
+{txt}{space 12} {c |}
+{space 7}_cons {c |}{col 14}{res}{space 2}-.5915169{col 26}{space 2} 1.981732{col 37}{space 1}   -0.30{col 46}{space 3}0.765{col 54}{space 4} -4.47564{col 67}{space 3} 3.292606
+{txt}{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}Bitcoin      {txt}{c |}
+{space 3}OilPrices {c |}
+{space 9}L1. {c |}{col 14}{res}{space 2} 10.27574{col 26}{space 2} 12.85591{col 37}{space 1}    0.80{col 46}{space 3}0.424{col 54}{space 4}-14.92138{col 67}{space 3} 35.47286
+{txt}{space 12} {c |}
+{space 5}Bitcoin {c |}
+{space 9}L1. {c |}{col 14}{res}{space 2} .9269308{col 26}{space 2} .0471758{col 37}{space 1}   19.65{col 46}{space 3}0.000{col 54}{space 4}  .834468{col 67}{space 3} 1.019394
+{txt}{space 12} {c |}
+{space 8}MARA {c |}
+{space 9}L1. {c |}{col 14}{res}{space 2}-22.93996{col 26}{space 2} 42.58347{col 37}{space 1}   -0.54{col 46}{space 3}0.590{col 54}{space 4} -106.402{col 67}{space 3}  60.5221
+{txt}{space 12} {c |}
+{space 8}BLCN {c |}
+{space 9}L1. {c |}{col 14}{res}{space 2} 152.5981{col 26}{space 2} 52.03043{col 37}{space 1}    2.93{col 46}{space 3}0.003{col 54}{space 4} 50.62035{col 67}{space 3} 254.5759
+{txt}{space 12} {c |}
+{space 7}_cons {c |}{col 14}{res}{space 2}-3565.734{col 26}{space 2} 1583.805{col 37}{space 1}   -2.25{col 46}{space 3}0.024{col 54}{space 4}-6669.935{col 67}{space 3}-461.5329
+{txt}{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}MARA         {txt}{c |}
+{space 3}OilPrices {c |}
+{space 9}L1. {c |}{col 14}{res}{space 2} .0192877{col 26}{space 2} .0165353{col 37}{space 1}    1.17{col 46}{space 3}0.243{col 54}{space 4}-.0131209{col 67}{space 3} .0516964
+{txt}{space 12} {c |}
+{space 5}Bitcoin {c |}
+{space 9}L1. {c |}{col 14}{res}{space 2} .0001126{col 26}{space 2} .0000607{col 37}{space 1}    1.86{col 46}{space 3}0.063{col 54}{space 4}-6.31e-06{col 67}{space 3} .0002315
+{txt}{space 12} {c |}
+{space 8}MARA {c |}
+{space 9}L1. {c |}{col 14}{res}{space 2} .7769654{col 26}{space 2}  .054771{col 37}{space 1}   14.19{col 46}{space 3}0.000{col 54}{space 4} .6696162{col 67}{space 3} .8843146
+{txt}{space 12} {c |}
+{space 8}BLCN {c |}
+{space 9}L1. {c |}{col 14}{res}{space 2} .1034709{col 26}{space 2} .0669217{col 37}{space 1}    1.55{col 46}{space 3}0.122{col 54}{space 4}-.0276933{col 67}{space 3} .2346351
+{txt}{space 12} {c |}
+{space 7}_cons {c |}{col 14}{res}{space 2}-3.971762{col 26}{space 2} 2.037096{col 37}{space 1}   -1.95{col 46}{space 3}0.051{col 54}{space 4}-7.964397{col 67}{space 3} .0208721
+{txt}{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}BLCN         {txt}{c |}
+{space 3}OilPrices {c |}
+{space 9}L1. {c |}{col 14}{res}{space 2} -.011075{col 26}{space 2} .0055409{col 37}{space 1}   -2.00{col 46}{space 3}0.046{col 54}{space 4} -.021935{col 67}{space 3} -.000215
+{txt}{space 12} {c |}
+{space 5}Bitcoin {c |}
+{space 9}L1. {c |}{col 14}{res}{space 2} .0000339{col 26}{space 2} .0000203{col 37}{space 1}    1.67{col 46}{space 3}0.096{col 54}{space 4}-5.98e-06{col 67}{space 3} .0000737
+{txt}{space 12} {c |}
+{space 8}MARA {c |}
+{space 9}L1. {c |}{col 14}{res}{space 2}-.0399778{col 26}{space 2} .0183536{col 37}{space 1}   -2.18{col 46}{space 3}0.029{col 54}{space 4}-.0759501{col 67}{space 3}-.0040054
+{txt}{space 12} {c |}
+{space 8}BLCN {c |}
+{space 9}L1. {c |}{col 14}{res}{space 2}  .992923{col 26}{space 2} .0224252{col 37}{space 1}   44.28{col 46}{space 3}0.000{col 54}{space 4} .9489703{col 67}{space 3} 1.036876
+{txt}{space 12} {c |}
+{space 7}_cons {c |}{col 14}{res}{space 2} .7897795{col 26}{space 2} .6826241{col 37}{space 1}    1.16{col 46}{space 3}0.247{col 54}{space 4}-.5481392{col 67}{space 3} 2.127698
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+
+{com}. vargranger
+
+{txt}{col 4}Granger causality Wald tests
+{col 3}{text}{c TLC}{hline 19}{hline 19}{c TT}{hline 9}{hline 6}{hline 12}{c TRC}
+{col 3}{text}{c |}          Equation{col 23}          Excluded{col 42}{c |}   chi2 {col 52}   df{col 58}Prob > chi2{col 70}{c |}
+{col 3}{text}{c LT}{hline 19}{hline 19}{c +}{hline 9}{hline 6}{hline 12}{c RT}
+{col 3}{text}{c |}         OilPrices{col 23}           Bitcoin{col 42}{c |}{result}{space 1} .74173{col 52}    1{col 58}{space 2} 0.389{col 70}{text}{c |}
+{col 3}{text}{c |}         OilPrices{col 23}              MARA{col 42}{c |}{result}{space 1} 1.1214{col 52}    1{col 58}{space 2} 0.290{col 70}{text}{c |}
+{col 3}{text}{c |}         OilPrices{col 23}              BLCN{col 42}{c |}{result}{space 1} .25586{col 52}    1{col 58}{space 2} 0.613{col 70}{text}{c |}
+{col 3}{text}{c |}         OilPrices{col 23}               ALL{col 42}{c |}{result}{space 1} 4.9218{col 52}    3{col 58}{space 2} 0.178{col 70}{text}{c |}
+{col 3}{text}{c LT}{hline 19}{hline 19}{c +}{hline 9}{hline 6}{hline 12}{c RT}
+{col 3}{text}{c |}           Bitcoin{col 23}         OilPrices{col 42}{c |}{result}{space 1} .63888{col 52}    1{col 58}{space 2} 0.424{col 70}{text}{c |}
+{col 3}{text}{c |}           Bitcoin{col 23}              MARA{col 42}{c |}{result}{space 1}  .2902{col 52}    1{col 58}{space 2} 0.590{col 70}{text}{c |}
+{col 3}{text}{c |}           Bitcoin{col 23}              BLCN{col 42}{c |}{result}{space 1} 8.6017{col 52}    1{col 58}{space 2} 0.003{col 70}{text}{c |}
+{col 3}{text}{c |}           Bitcoin{col 23}               ALL{col 42}{c |}{result}{space 1} 9.6851{col 52}    3{col 58}{space 2} 0.021{col 70}{text}{c |}
+{col 3}{text}{c LT}{hline 19}{hline 19}{c +}{hline 9}{hline 6}{hline 12}{c RT}
+{col 3}{text}{c |}              MARA{col 23}         OilPrices{col 42}{c |}{result}{space 1} 1.3606{col 52}    1{col 58}{space 2} 0.243{col 70}{text}{c |}
+{col 3}{text}{c |}              MARA{col 23}           Bitcoin{col 42}{c |}{result}{space 1} 3.4446{col 52}    1{col 58}{space 2} 0.063{col 70}{text}{c |}
+{col 3}{text}{c |}              MARA{col 23}              BLCN{col 42}{c |}{result}{space 1} 2.3906{col 52}    1{col 58}{space 2} 0.122{col 70}{text}{c |}
+{col 3}{text}{c |}              MARA{col 23}               ALL{col 42}{c |}{result}{space 1} 17.643{col 52}    3{col 58}{space 2} 0.001{col 70}{text}{c |}
+{col 3}{text}{c LT}{hline 19}{hline 19}{c +}{hline 9}{hline 6}{hline 12}{c RT}
+{col 3}{text}{c |}              BLCN{col 23}         OilPrices{col 42}{c |}{result}{space 1} 3.9951{col 52}    1{col 58}{space 2} 0.046{col 70}{text}{c |}
+{col 3}{text}{c |}              BLCN{col 23}           Bitcoin{col 42}{c |}{result}{space 1} 2.7746{col 52}    1{col 58}{space 2} 0.096{col 70}{text}{c |}
+{col 3}{text}{c |}              BLCN{col 23}              MARA{col 42}{c |}{result}{space 1} 4.7446{col 52}    1{col 58}{space 2} 0.029{col 70}{text}{c |}
+{col 3}{text}{c |}              BLCN{col 23}               ALL{col 42}{c |}{result}{space 1}  13.53{col 52}    3{col 58}{space 2} 0.004{col 70}{text}{c |}
+{col 3}{text}{c BLC}{hline 19}{hline 19}{c BT}{hline 9}{hline 6}{hline 12}{c BRC}
+
+{com}. 
+. * Graph for Non-Stationary data
+. tsline OilPrices, name(A1)
+{res}{txt}
+{com}. tsline Bitcoin, name(A2)
+{res}{txt}
+{com}. tsline MARA, name(A3)
+{res}{txt}
+{com}. tsline BLCN, name(A4)
+{res}{txt}
+{com}. 
+. graph combine A1 A2 A3 A4
+{res}{txt}
+{com}. 
+. * Checking for Stationarity
+. dfuller OilPrices, lags(1)
+
+{txt}Augmented Dickey-Fuller test for unit root         Number of obs   = {res}      245
+
+{txt}{col 32}{hline 10} Interpolated Dickey-Fuller {hline 9}
+                  Test         1% Critical       5% Critical      10% Critical
+               Statistic           Value             Value             Value
+{hline 78}
+ Z(t)         {res}    -0.870            -3.462            -2.880            -2.570
+{txt}{hline 78}
+MacKinnon approximate p-value for Z(t) = {res}0.7977
+{txt}
+{com}. dfuller Bitcoin, lags(1)
+
+{txt}Augmented Dickey-Fuller test for unit root         Number of obs   = {res}      245
+
+{txt}{col 32}{hline 10} Interpolated Dickey-Fuller {hline 9}
+                  Test         1% Critical       5% Critical      10% Critical
+               Statistic           Value             Value             Value
+{hline 78}
+ Z(t)         {res}    -1.121            -3.462            -2.880            -2.570
+{txt}{hline 78}
+MacKinnon approximate p-value for Z(t) = {res}0.7065
+{txt}
+{com}. dfuller MARA, lags(1)
+
+{txt}Augmented Dickey-Fuller test for unit root         Number of obs   = {res}      245
+
+{txt}{col 32}{hline 10} Interpolated Dickey-Fuller {hline 9}
+                  Test         1% Critical       5% Critical      10% Critical
+               Statistic           Value             Value             Value
+{hline 78}
+ Z(t)         {res}    -1.946            -3.462            -2.880            -2.570
+{txt}{hline 78}
+MacKinnon approximate p-value for Z(t) = {res}0.3106
+{txt}
+{com}. dfuller BLCN, lags(1)
+
+{txt}Augmented Dickey-Fuller test for unit root         Number of obs   = {res}      220
+
+{txt}{col 32}{hline 10} Interpolated Dickey-Fuller {hline 9}
+                  Test         1% Critical       5% Critical      10% Critical
+               Statistic           Value             Value             Value
+{hline 78}
+ Z(t)         {res}    -0.994            -3.470            -2.882            -2.572
+{txt}{hline 78}
+MacKinnon approximate p-value for Z(t) = {res}0.7555
+{txt}
+{com}. 
+. *Making data Stationary
+. gen d_OilPrices= d.OilPrices
+{txt}(1 missing value generated)
+
+{com}. gen d_Bitcoin= d.Bitcoin
+{txt}(1 missing value generated)
+
+{com}. gen d_MARA= d.MARA
+{txt}(1 missing value generated)
+
+{com}. gen d_BLCN= d.BLCN
+{txt}(26 missing values generated)
+
+{com}. 
+. * AIC/BIC to get the optimal lag
+. varsoc d_OilPrices d_Bitcoin d_MARA d_BLCN, maxlag(5)
+
+{txt}{col 4}Selection-order criteria
+{col 4}Sample:  {res}2018w8 - 2022w15 {txt}{col 49}Number of obs {col 68}= {res}      216
+{col 3}{text}{c TLC}{hline 4}{c TT}{hline 9}{hline 8}{hline 1}{hline 5}{hline 7}{hline 8}{hline 1}{hline 9}{hline 1}{hline 9}{hline 1}{hline 9}{hline 1}{hline 1}{c TRC}
+{col 3}{text}{c |}lag{col 8}{c |}    LL  {col 18}   LR  {col 27}  df{col 32}   p  {col 39}   FPE {col 48}    AIC {col 58}   HQIC {col 68}   SBIC {col 79}{c |}
+{col 3}{text}{c LT}{hline 4}{c +}{hline 9}{hline 8}{hline 1}{hline 5}{hline 7}{hline 8}{hline 1}{hline 9}{hline 1}{hline 9}{hline 1}{hline 9}{hline 1}{hline 1}{c RT}
+{col 3}{text}{c |}  0{col 8}{c |}{result}{space 1}-3401.82{col 18}{col 27}{col 32}{col 39} 5.8e+08{col 47}*{col 48}{space 1} 31.5354{col 57}*{col 58}{space 1} 31.5606{col 67}*{col 68}{space 1} 31.5979{col 77}*{col 79}{text}{c |}
+{col 3}{text}{c |}  1{col 8}{c |}{result}{space 1}-3389.47{col 18}{space 1} 24.713{col 27}  16{col 32} 0.075{col 39} 6.0e+08{col 48}{space 1} 31.5691{col 58}{space 1} 31.6954{col 68}{space 1} 31.8816{col 79}{text}{c |}
+{col 3}{text}{c |}  2{col 8}{c |}{result}{space 1}-3375.84{col 18}{space 1} 27.251{col 27}  16{col 32} 0.039{col 39} 6.2e+08{col 48}{space 1} 31.5911{col 58}{space 1} 31.8184{col 68}{space 1} 32.1537{col 79}{text}{c |}
+{col 3}{text}{c |}  3{col 8}{c |}{result}{space 1}-3363.95{col 18}{space 1} 23.786{col 27}  16{col 32} 0.094{col 39} 6.4e+08{col 48}{space 1} 31.6291{col 58}{space 1} 31.9574{col 68}{space 1} 32.4417{col 79}{text}{c |}
+{col 3}{text}{c |}  4{col 8}{c |}{result}{space 1}-3357.76{col 18}{space 1} 12.375{col 27}  16{col 32} 0.718{col 39} 7.0e+08{col 48}{space 1}   31.72{col 58}{space 1} 32.1493{col 68}{space 1} 32.7826{col 79}{text}{c |}
+{col 3}{text}{c |}  5{col 8}{c |}{result}{space 1}-3344.33{col 18}{space 1} 26.858{col 26}*{col 27}  16{col 32} 0.043{col 39} 7.2e+08{col 48}{space 1} 31.7438{col 58}{space 1} 32.2741{col 68}{space 1} 33.0564{col 79}{text}{c |}
+{col 3}{text}{c BLC}{hline 4}{c BT}{hline 9}{hline 8}{hline 1}{hline 5}{hline 7}{hline 8}{hline 1}{hline 9}{hline 1}{hline 9}{hline 1}{hline 9}{hline 1}{hline 1}{c BRC}
+{space 3}Endogenous:  d_OilPrices d_Bitcoin d_MARA d_BLCN
+{space 3} Exogenous:  _cons
+
+{com}. 
+. * Vector Autoregression for Granger Causality test
+. var d_OilPrices d_Bitcoin d_MARA d_BLCN, lags(1)
+{res}
+{txt}Vector autoregression
+
+{col 1}Sample:  {res}2018w4 - 2022w15 {txt}{col 49}Number of obs{col 67}= {res}       220
+{txt}Log likelihood =  {res}-3447.292{txt}{col 38}{col 49}AIC{col 67}=  {res} 31.52084
+{txt}FPE{col 16}=  {res} 5.75e+08{txt}{col 49}HQIC{col 67}=  {res} 31.64542
+{txt}Det(Sigma_ml){col 16}=  {res} 4.79e+08{txt}{col 49}SBIC{col 67}=  {res} 31.82935
+
+{col 1}{text}Equation        {col 18}  Parms{col 26}     RMSE {col 37}   R-sq  {col 47}   chi2   {col 58} P>chi2
+{col 1}{text}{hline 17}{hline 8}{hline 11}{hline 10}{hline 11}{hline 7}
+{col 1}{text}d_OilPrices     {col 18}{result}     5{col 26}{space 2} 3.33591{col 37}{space 1} 0.0466{col 47} 10.75603{col 58} 0.0294
+{col 1}{text}d_Bitcoin       {col 18}{result}     5{col 26}{space 2} 2723.71{col 37}{space 1} 0.0277{col 47} 6.270565{col 58} 0.1798
+{col 1}{text}d_MARA          {col 18}{result}     5{col 26}{space 2} 3.61048{col 37}{space 1} 0.0110{col 47} 2.447027{col 58} 0.6541
+{col 1}{text}d_BLCN          {col 18}{result}     5{col 26}{space 2} 1.19088{col 37}{space 1} 0.0158{col 47} 3.530027{col 58} 0.4733
+{col 1}{text}{hline 17}{hline 8}{hline 11}{hline 10}{hline 11}{hline 7}
+
+{res}{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}      Coef.{col 26}   Std. Err.{col 38}      z{col 46}   P>|z|{col 54}     [95% Con{col 67}f. Interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}d_OilPrices  {txt}{c |}
+{space 1}d_OilPrices {c |}
+{space 9}L1. {c |}{col 14}{res}{space 2} .0837346{col 26}{space 2} .0672365{col 37}{space 1}    1.25{col 46}{space 3}0.213{col 54}{space 4}-.0480464{col 67}{space 3} .2155157
+{txt}{space 12} {c |}
+{space 3}d_Bitcoin {c |}
+{space 9}L1. {c |}{col 14}{res}{space 2} 3.31e-06{col 26}{space 2} .0001108{col 37}{space 1}    0.03{col 46}{space 3}0.976{col 54}{space 4}-.0002138{col 67}{space 3} .0002205
+{txt}{space 12} {c |}
+{space 6}d_MARA {c |}
+{space 9}L1. {c |}{col 14}{res}{space 2} -.066855{col 26}{space 2} .0894532{col 37}{space 1}   -0.75{col 46}{space 3}0.455{col 54}{space 4}-.2421801{col 67}{space 3} .1084701
+{txt}{space 12} {c |}
+{space 6}d_BLCN {c |}
+{space 9}L1. {c |}{col 14}{res}{space 2}   .60968{col 26}{space 2} .2361312{col 37}{space 1}    2.58{col 46}{space 3}0.010{col 54}{space 4} .1468713{col 67}{space 3} 1.072489
+{txt}{space 12} {c |}
+{space 7}_cons {c |}{col 14}{res}{space 2} .1200617{col 26}{space 2} .2229948{col 37}{space 1}    0.54{col 46}{space 3}0.590{col 54}{space 4}-.3170001{col 67}{space 3} .5571234
+{txt}{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}d_Bitcoin    {txt}{c |}
+{space 1}d_OilPrices {c |}
+{space 9}L1. {c |}{col 14}{res}{space 2}-15.22591{col 26}{space 2} 54.89722{col 37}{space 1}   -0.28{col 46}{space 3}0.782{col 54}{space 4}-122.8225{col 67}{space 3} 92.37067
+{txt}{space 12} {c |}
+{space 3}d_Bitcoin {c |}
+{space 9}L1. {c |}{col 14}{res}{space 2}-.0773511{col 26}{space 2} .0904568{col 37}{space 1}   -0.86{col 46}{space 3}0.392{col 54}{space 4}-.2546432{col 67}{space 3} .0999411
+{txt}{space 12} {c |}
+{space 6}d_MARA {c |}
+{space 9}L1. {c |}{col 14}{res}{space 2} 125.9053{col 26}{space 2} 73.03674{col 37}{space 1}    1.72{col 46}{space 3}0.085{col 54}{space 4}-17.24406{col 67}{space 3} 269.0547
+{txt}{space 12} {c |}
+{space 6}d_BLCN {c |}
+{space 9}L1. {c |}{col 14}{res}{space 2} 150.4632{col 26}{space 2} 192.7964{col 37}{space 1}    0.78{col 46}{space 3}0.435{col 54}{space 4}-227.4108{col 67}{space 3} 528.3371
+{txt}{space 12} {c |}
+{space 7}_cons {c |}{col 14}{res}{space 2} 134.7962{col 26}{space 2} 182.0707{col 37}{space 1}    0.74{col 46}{space 3}0.459{col 54}{space 4}-222.0559{col 67}{space 3} 491.6483
+{txt}{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}d_MARA       {txt}{c |}
+{space 1}d_OilPrices {c |}
+{space 9}L1. {c |}{col 14}{res}{space 2}-.0115874{col 26}{space 2} .0727705{col 37}{space 1}   -0.16{col 46}{space 3}0.873{col 54}{space 4}-.1542149{col 67}{space 3} .1310402
+{txt}{space 12} {c |}
+{space 3}d_Bitcoin {c |}
+{space 9}L1. {c |}{col 14}{res}{space 2} .0000521{col 26}{space 2} .0001199{col 37}{space 1}    0.43{col 46}{space 3}0.664{col 54}{space 4}-.0001829{col 67}{space 3} .0002871
+{txt}{space 12} {c |}
+{space 6}d_MARA {c |}
+{space 9}L1. {c |}{col 14}{res}{space 2}-.0477257{col 26}{space 2} .0968158{col 37}{space 1}   -0.49{col 46}{space 3}0.622{col 54}{space 4}-.2374812{col 67}{space 3} .1420298
+{txt}{space 12} {c |}
+{space 6}d_BLCN {c |}
+{space 9}L1. {c |}{col 14}{res}{space 2} .3278469{col 26}{space 2} .2555664{col 37}{space 1}    1.28{col 46}{space 3}0.200{col 54}{space 4}-.1730541{col 67}{space 3} .8287479
+{txt}{space 12} {c |}
+{space 7}_cons {c |}{col 14}{res}{space 2} .0167463{col 26}{space 2} .2413488{col 37}{space 1}    0.07{col 46}{space 3}0.945{col 54}{space 4}-.4562886{col 67}{space 3} .4897812
+{txt}{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}d_BLCN       {txt}{c |}
+{space 1}d_OilPrices {c |}
+{space 9}L1. {c |}{col 14}{res}{space 2} .0016146{col 26}{space 2} .0240026{col 37}{space 1}    0.07{col 46}{space 3}0.946{col 54}{space 4}-.0454296{col 67}{space 3} .0486589
+{txt}{space 12} {c |}
+{space 3}d_Bitcoin {c |}
+{space 9}L1. {c |}{col 14}{res}{space 2} .0000353{col 26}{space 2} .0000396{col 37}{space 1}    0.89{col 46}{space 3}0.372{col 54}{space 4}-.0000422{col 67}{space 3} .0001129
+{txt}{space 12} {c |}
+{space 6}d_MARA {c |}
+{space 9}L1. {c |}{col 14}{res}{space 2} .0237134{col 26}{space 2} .0319337{col 37}{space 1}    0.74{col 46}{space 3}0.458{col 54}{space 4}-.0388756{col 67}{space 3} .0863023
+{txt}{space 12} {c |}
+{space 6}d_BLCN {c |}
+{space 9}L1. {c |}{col 14}{res}{space 2}-.0283599{col 26}{space 2}  .084296{col 37}{space 1}   -0.34{col 46}{space 3}0.737{col 54}{space 4}-.1935771{col 67}{space 3} .1368572
+{txt}{space 12} {c |}
+{space 7}_cons {c |}{col 14}{res}{space 2} .0360392{col 26}{space 2} .0796065{col 37}{space 1}    0.45{col 46}{space 3}0.651{col 54}{space 4}-.1199866{col 67}{space 3}  .192065
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+
+{com}. vargranger
+
+{txt}{col 4}Granger causality Wald tests
+{col 3}{text}{c TLC}{hline 19}{hline 19}{c TT}{hline 9}{hline 6}{hline 12}{c TRC}
+{col 3}{text}{c |}          Equation{col 23}          Excluded{col 42}{c |}   chi2 {col 52}   df{col 58}Prob > chi2{col 70}{c |}
+{col 3}{text}{c LT}{hline 19}{hline 19}{c +}{hline 9}{hline 6}{hline 12}{c RT}
+{col 3}{text}{c |}       d_OilPrices{col 23}         d_Bitcoin{col 42}{c |}{result}{space 1} .00089{col 52}    1{col 58}{space 2} 0.976{col 70}{text}{c |}
+{col 3}{text}{c |}       d_OilPrices{col 23}            d_MARA{col 42}{c |}{result}{space 1} .55857{col 52}    1{col 58}{space 2} 0.455{col 70}{text}{c |}
+{col 3}{text}{c |}       d_OilPrices{col 23}            d_BLCN{col 42}{c |}{result}{space 1} 6.6665{col 52}    1{col 58}{space 2} 0.010{col 70}{text}{c |}
+{col 3}{text}{c |}       d_OilPrices{col 23}               ALL{col 42}{c |}{result}{space 1} 7.4819{col 52}    3{col 58}{space 2} 0.058{col 70}{text}{c |}
+{col 3}{text}{c LT}{hline 19}{hline 19}{c +}{hline 9}{hline 6}{hline 12}{c RT}
+{col 3}{text}{c |}         d_Bitcoin{col 23}       d_OilPrices{col 42}{c |}{result}{space 1} .07692{col 52}    1{col 58}{space 2} 0.782{col 70}{text}{c |}
+{col 3}{text}{c |}         d_Bitcoin{col 23}            d_MARA{col 42}{c |}{result}{space 1} 2.9717{col 52}    1{col 58}{space 2} 0.085{col 70}{text}{c |}
+{col 3}{text}{c |}         d_Bitcoin{col 23}            d_BLCN{col 42}{c |}{result}{space 1} .60906{col 52}    1{col 58}{space 2} 0.435{col 70}{text}{c |}
+{col 3}{text}{c |}         d_Bitcoin{col 23}               ALL{col 42}{c |}{result}{space 1} 5.3929{col 52}    3{col 58}{space 2} 0.145{col 70}{text}{c |}
+{col 3}{text}{c LT}{hline 19}{hline 19}{c +}{hline 9}{hline 6}{hline 12}{c RT}
+{col 3}{text}{c |}            d_MARA{col 23}       d_OilPrices{col 42}{c |}{result}{space 1} .02535{col 52}    1{col 58}{space 2} 0.873{col 70}{text}{c |}
+{col 3}{text}{c |}            d_MARA{col 23}         d_Bitcoin{col 42}{c |}{result}{space 1} .18855{col 52}    1{col 58}{space 2} 0.664{col 70}{text}{c |}
+{col 3}{text}{c |}            d_MARA{col 23}            d_BLCN{col 42}{c |}{result}{space 1} 1.6456{col 52}    1{col 58}{space 2} 0.200{col 70}{text}{c |}
+{col 3}{text}{c |}            d_MARA{col 23}               ALL{col 42}{c |}{result}{space 1} 2.1009{col 52}    3{col 58}{space 2} 0.552{col 70}{text}{c |}
+{col 3}{text}{c LT}{hline 19}{hline 19}{c +}{hline 9}{hline 6}{hline 12}{c RT}
+{col 3}{text}{c |}            d_BLCN{col 23}       d_OilPrices{col 42}{c |}{result}{space 1} .00453{col 52}    1{col 58}{space 2} 0.946{col 70}{text}{c |}
+{col 3}{text}{c |}            d_BLCN{col 23}         d_Bitcoin{col 42}{c |}{result}{space 1} .79846{col 52}    1{col 58}{space 2} 0.372{col 70}{text}{c |}
+{col 3}{text}{c |}            d_BLCN{col 23}            d_MARA{col 42}{c |}{result}{space 1} .55143{col 52}    1{col 58}{space 2} 0.458{col 70}{text}{c |}
+{col 3}{text}{c |}            d_BLCN{col 23}               ALL{col 42}{c |}{result}{space 1} 2.8886{col 52}    3{col 58}{space 2} 0.409{col 70}{text}{c |}
+{col 3}{text}{c BLC}{hline 19}{hline 19}{c BT}{hline 9}{hline 6}{hline 12}{c BRC}
+
+{com}. 
+. * Graph for Stationary data
+. tsline d_OilPrices, name(B1)
+{res}{txt}
+{com}. tsline d_Bitcoin, name(B2)
+{res}{txt}
+{com}. tsline d_MARA, name(B3)
+{res}{txt}
+{com}. tsline d_BLCN, name(B4)
+{res}{txt}
+{com}. 
+. graph combine B1 B2 B3 B4
+{res}{txt}
+{com}. 
+. 
+. log close
+      {txt}name:  {res}<unnamed>
+       {txt}log:  {res}/Users/Arun/Desktop/Spring 2022/MicroEconometrics/Paper/Micro Paper.smcl
+  {txt}log type:  {res}smcl
+ {txt}closed on:  {res} 6 May 2022, 18:05:18
+{txt}{.-}
+{smcl}
+{txt}{sf}{ul off}
